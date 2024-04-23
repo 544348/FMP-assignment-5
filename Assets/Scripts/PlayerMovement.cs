@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public float raycastDistance;
     private bool hasCollectedDoublejumpCollectable;
     private GameObject doublejumpCollectable;
-    private int amountOfExtraJumpsLeft = 1;
+    public int amountOfExtraJumpsLeft = 1;
     private bool isInAir;
     private bool hasJumped;
     public int amountOfExtraJumps;
@@ -105,6 +105,8 @@ public class PlayerMovement : MonoBehaviour
         {
             rig.velocity = new Vector2(rig.velocity.x, 0);
             rig.AddForce(Vector2.up * jumpStrength);
+             --amountOfExtraJumpsLeft;
+
         }
         else if (isOnWall)
         {
@@ -158,6 +160,7 @@ public class PlayerMovement : MonoBehaviour
         if(isGrounded == true && isInAir == true)
         {
             amountOfExtraJumps = amountOfExtraJumpsLeft;
+              
         }
         if (wallJumpTimerActive) 
         {
