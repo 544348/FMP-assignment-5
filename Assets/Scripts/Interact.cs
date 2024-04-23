@@ -15,26 +15,31 @@ public class Interact : MonoBehaviour
     {
         DisableeInteract();
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log("hit");
-        ActiveeInteract();
-    }
+    /* private void OnTriggerEnter2D(Collider2D collision)
+     {
+         Debug.Log("hit");
+         ActiveeInteract();
+     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        Debug.Log("exit");
-        DisableeInteract();
-    }
+     private void OnTriggerExit2D(Collider2D collision)
+     {
+         Debug.Log("exit");
+         DisableeInteract();
+     }
+    */
 
-
-    void DisableeInteract()
+    public void DisableeInteract()
     {
         eInteract.SetActive(false);
+        textbox.SetActive(false);
     }
 
-    void ActiveeInteract()
+    public void ActiveeInteract()
     {
         eInteract.SetActive(true);
+    }
+    public void interactWithNPC()
+    {
+        textbox.SetActive(true);
     }
 }

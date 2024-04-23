@@ -20,22 +20,23 @@ public class PlayerMovement : MonoBehaviour
     public float raycastDistance;
     private bool hasCollectedDoublejumpCollectable;
     private GameObject doublejumpCollectable;
-    public int amountOfExtraJumpsLeft = 1;
+    public int amountOfExtraJumpsLeft;
     private bool isInAir;
     private bool hasJumped;
     public int amountOfExtraJumps;
     [Header("Wall jumping variables")]
+    public float wallJumpTimerInterval;
     private bool isOnWall;
     private bool noControl;
     private bool wallJumpTimerActive;
-    public float wallJumpTimerInterval;
     public float wallJumpForce;
     private bool flipped;
     private Vector3 defaultScale;
     [Header("Stage 2 speed")]
-    private float stageTwoSpeedTimer;
     public float stageTwoSpeedTimerInterval;
+    private float stageTwoSpeedTimer;
     private bool stageTwoSpeedTimerActive;
+    private Collider2D mostRecentNPCinteraction;
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
@@ -58,6 +59,29 @@ public class PlayerMovement : MonoBehaviour
                 wallGrab();
             }
         }
+        if (collision.gameObject.tag == "NPC")
+        {
+            collision.gameObject.GetComponent<Interact>().ActiveeInteract();
+            mostRecentNPCinteraction = collision;
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                collision.gameObject.GetComponent<Interact>().interactWithNPC();
+                Debug.Log("player has interacted with NPC");
+            }
+        }
+        Debug.Log("player has triggered " + collision);
+    }
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if(other.gameObject.tag == "NPC")
+        {
+            other.gameObject.GetComponent<Interact>().ActiveeInteract();
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                other.gameObject.GetComponent<Interact>().interactWithNPC();
+                Debug.Log("player has interacted with NPC");
+            }
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -65,6 +89,13 @@ public class PlayerMovement : MonoBehaviour
         {
             rig.gravityScale = 1;
             noControl = false;
+            isOnWall = false;
+        }
+        Debug.Log("player has exited trigger " + collision);
+        if (collision.gameObject.tag == "NPC")
+        {
+            collision.gameObject.GetComponent<Interact>().DisableeInteract();
+            mostRecentNPCinteraction = null;
         }
     }
     private void FixedUpdate()
@@ -100,13 +131,14 @@ public class PlayerMovement : MonoBehaviour
         {
             rig.velocity = new Vector2(rig.velocity.x, 0);
             rig.AddForce(Vector2.up * jumpStrength);
+            Debug.Log("has jumped");
         }
         else if (amountOfExtraJumpsLeft > 0 && isOnWall == false)
         {
             rig.velocity = new Vector2(rig.velocity.x, 0);
             rig.AddForce(Vector2.up * jumpStrength);
              --amountOfExtraJumpsLeft;
-
+            Debug.Log("has double jumped");
         }
         else if (isOnWall)
         {
@@ -115,13 +147,14 @@ public class PlayerMovement : MonoBehaviour
             rig.AddForce(new Vector2((5 * wallJumpForce) * transform.localScale.x, 1 * jumpStrength));
             flip();
             hasJumped = true;
-            
+            Debug.Log("has wall jumped");
         }
-        else if (!isGrounded)
+        else if (!isGrounded && !isOnWall)
         {
             --amountOfExtraJumpsLeft;
             rig.velocity = new Vector2(rig.velocity.x, 0);
             rig.AddForce(Vector2.up * jumpStrength);
+            Debug.Log("has double jumped");
         }
     }
     private void GroundCheck()
@@ -139,7 +172,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 Jump();
             }
-            else if(isInAir == true && amountOfExtraJumpsLeft != 0)
+            else if(isInAir == true && amountOfExtraJumpsLeft != 0 || isOnWall)
             {
                 Jump();
                 if (amountOfExtraJumpsLeft < 0)
@@ -203,6 +236,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 speed = baseSpeed * 2;
             }
+        }
+        if (Input.GetKeyDown(KeyCode.E) && mostRecentNPCinteraction != null)
+        {
+            mostRecentNPCinteraction.GetComponent<Interact>().interactWithNPC();
         }
     }
 }
