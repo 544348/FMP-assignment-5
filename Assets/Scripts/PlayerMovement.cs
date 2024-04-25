@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
     public LayerMask ground;
     public float raycastDistance;
+    public GameObject RaycastRight;
+    public GameObject RaycastLeft;
     private bool hasCollectedDoublejumpCollectable;
     private GameObject doublejumpCollectable;
     public int amountOfExtraJumpsLeft;
@@ -37,6 +39,10 @@ public class PlayerMovement : MonoBehaviour
     private float stageTwoSpeedTimer;
     private bool stageTwoSpeedTimerActive;
     private Collider2D mostRecentNPCinteraction;
+
+
+    bool grounded = false;
+
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
@@ -159,7 +165,30 @@ public class PlayerMovement : MonoBehaviour
     }
     private void GroundCheck()
     {
-        isGrounded = Physics2D.Raycast(gameObject.transform.position, Vector2.down, raycastDistance, ground);
+       
+
+
+        // Define the corners of the overlap area
+        Vector2 corner1 = new Vector2(gameObject.transform.position.x - 0.5f, gameObject.transform.position.y - 0.1f);
+        Vector2 corner2 = new Vector2(RaycastLeft.transform.position.x + 0.5f, gameObject.transform.position.y - raycastDistance);
+
+        // Check for overlap in the defined area
+        Collider2D[] colliders = Physics2D.OverlapAreaAll(corner1, corner2);
+
+        // Check if any colliders are found
+        if (colliders.Length > 0)
+        {
+            // Object is grounded
+            Debug.Log("Grounded!");
+        }
+        else
+        {
+            // Object is not grounded
+            Debug.Log("Not Grounded!");
+        }
+
+
+        isGrounded = Physics2D.Raycast(RaycastRight.transform.position, Vector2.down, raycastDistance, ground) || Physics2D.Raycast(RaycastLeft.transform.position, Vector2.down, raycastDistance, ground);
         Debug.DrawLine(gameObject.transform.position, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - raycastDistance), Color.green);
     }
     void Update()
