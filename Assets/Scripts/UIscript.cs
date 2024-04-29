@@ -49,12 +49,11 @@ public class UIscript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (menu.activeSelf|| settingsMenu.activeSelf|| controlsMenu.activeSelf)
+            if (menu.activeSelf|| settingsMenu.activeSelf)
             {
                 menu.SetActive(false);
                 Cursor.lockState = CursorLockMode.Locked;
                 settingsMenu.SetActive(false);
-                controlsMenu.SetActive(false);
             }
             else
             {
