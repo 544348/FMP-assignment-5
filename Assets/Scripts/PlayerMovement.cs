@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -39,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     private float stageTwoSpeedTimer;
     private bool stageTwoSpeedTimerActive;
     private Collider2D mostRecentNPCinteraction;
+    public GameObject QuestWall;
 
 
     bool grounded = false;
@@ -76,6 +79,16 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         Debug.Log("player has triggered " + collision);
+
+        if (collision.gameObject.tag == "CutsceneTrigger")
+        {
+            SceneManager.LoadScene("FallingCutscene");
+        }
+        if (collision.gameObject.tag == "FinishedQuestTrigger")
+        {
+            Destroy(collision.gameObject);
+            QuestWall.SetActive(false);
+        }
     }
     private void OnTriggerStay2D(Collider2D other)
     {

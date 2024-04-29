@@ -7,6 +7,9 @@ TagManager:
   - DoubleJumpCollectable
   - wall
   - NPC
+  - CutsceneTrigger
+  - FinishedQuestTrigger
+  - QuestWall
   layers:
   - Default
   - TransparentFX

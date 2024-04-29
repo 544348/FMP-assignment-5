@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIscript : MonoBehaviour
 {
@@ -45,15 +47,20 @@ public class UIscript : MonoBehaviour
         controlsMenu.SetActive(false);
         menu.SetActive(true);
     }
+    public void TitleStart()
+    {
+        SceneManager.LoadScene("Tutorial castle scene");
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (menu.activeSelf|| settingsMenu.activeSelf)
+            if (menu.activeSelf|| settingsMenu.activeSelf|| controlsMenu.activeSelf)
             {
                 menu.SetActive(false);
                 Cursor.lockState = CursorLockMode.Locked;
                 settingsMenu.SetActive(false);
+                controlsMenu.SetActive(false);
             }
             else
             {
