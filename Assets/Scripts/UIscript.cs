@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIscript : MonoBehaviour
+public class UIScript : MonoBehaviour
 {
     //variables
     private GameObject menu;

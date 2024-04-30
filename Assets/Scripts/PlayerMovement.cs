@@ -39,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
     private bool stageTwoSpeedTimerActive;
     private Collider2D mostRecentNPCinteraction;
     public GameObject QuestWall;
+    [Header("Dialogue")]
+    public Sprite playersFace;
 
 
     bool grounded = false;
@@ -65,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
                 wallGrab();
             }
         }
-        if (collision.gameObject.tag == "NPC")
+        if (collision.gameObject.tag == "NPC" && collision.gameObject.GetComponent<Interact>().isBeingInteractedWith == false)
         {
             collision.gameObject.GetComponent<Interact>().ActiveeInteract();
             mostRecentNPCinteraction = collision;
@@ -89,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D other)
     {
-        if(other.gameObject.tag == "NPC")
+        if(other.gameObject.tag == "NPC" && other.gameObject.GetComponent<Interact>().isBeingInteractedWith == false)
         {
             other.gameObject.GetComponent<Interact>().ActiveeInteract();
             if (Input.GetKeyDown(KeyCode.E))
@@ -276,7 +278,7 @@ public class PlayerMovement : MonoBehaviour
                 speed = baseSpeed * 2;
             }
         }
-        if (Input.GetKeyDown(KeyCode.E) && mostRecentNPCinteraction != null)
+        if (Input.GetKeyDown(KeyCode.E) && mostRecentNPCinteraction != null && mostRecentNPCinteraction.gameObject.GetComponent<Interact>().isBeingInteractedWith == false)
         {
             mostRecentNPCinteraction.GetComponent<Interact>().interactWithNPC();
         }

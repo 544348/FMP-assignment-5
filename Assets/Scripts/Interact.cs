@@ -3,17 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Properties;
 using UnityEngine.UI;
+using TMPro;
+using Unity.VisualScripting;
 
 public class Interact : MonoBehaviour
 {
 
     public GameObject textbox;
+    public Sprite NPCFace;
+    private TextMeshProUGUI dialogueText;
+    public float textSpeed;
+    private int totalIndex;
+    private int NPCIndex;
+    public int[] playerLineOrder;
+    public int playerIndex;
+    public string[] NPCLines;
+    public string[] playerLines;
+    private int totalAmountOfLines;
+    public bool playerIsSpeaking;
+    public bool isBeingInteractedWith;
     public GameObject eInteract;
     public GameObject CanvasObject;
+    private GameObject player;
 
     void Start()
     {
         DisableeInteract();
+        dialogueText.text = string.Empty;
+        player = GameObject.Find("Player");
+        NPCIndex = -1;
+        totalIndex = 0; 
+        totalAmountOfLines = NPCLines.Length + playerLines.Length;
+        isBeingInteractedWith = false;
+    }
+    private void Awake()
+    {
+        dialogueText = GameObject.Find("DialogueText").GetComponent<TextMeshProUGUI>();
     }
     /* private void OnTriggerEnter2D(Collider2D collision)
      {
@@ -28,12 +53,71 @@ public class Interact : MonoBehaviour
      }
     */
 
+    IEnumerator typeLine()
+    {
+        GameObject speakerImage = textbox.transform.GetChild(1).gameObject;
+        if (!playerIsSpeaking)
+        {
+            Debug.Log("SpeakerImageIs " + speakerImage.gameObject);
+            Debug.Log("NPCisSpeaking");
+            speakerImage.GetComponent<Image>().sprite = NPCFace;
+            foreach (char letter in NPCLines[NPCIndex].ToCharArray())
+            {
+                dialogueText.text += letter;
+                yield return new WaitForSeconds(textSpeed);
+
+            }
+        }
+        else 
+        {
+            Debug.Log("PlayerisSpeaking");
+            speakerImage.GetComponent<Image>().sprite = player.GetComponent<PlayerMovement>().playersFace;
+            foreach (char letter in playerLines[playerIndex].ToCharArray())
+            {
+                dialogueText.text += letter;
+                yield return new WaitForSeconds(textSpeed);
+            }
+        }
+    }
     public void DisableeInteract()
     {
+        dialogueText.text = string.Empty;
         eInteract.SetActive(false);
         textbox.SetActive(false);
+        StopAllCoroutines();
+        isBeingInteractedWith = false;
     }
-
+    public void ClearDialogue()
+    {
+        StopAllCoroutines();
+        dialogueText.text = string.Empty;
+    }
+    public void switchToNextLine()
+    {
+        if (totalIndex < totalAmountOfLines - 1)
+        {
+            totalIndex++;
+            foreach (int playersLines in playerLineOrder)
+            {
+                if (totalIndex == playersLines)
+                {
+                    playerIsSpeaking = true;
+                    playerIndex++;
+                }
+                else
+                {
+                    playerIsSpeaking = false;
+                    NPCIndex++;
+                }
+            }
+            dialogueText.text = string.Empty;
+            StartCoroutine(typeLine());
+        }
+        else
+        {
+            DisableeInteract();
+        }
+    }
     public void ActiveeInteract()
     {
         eInteract.SetActive(true);
@@ -41,5 +125,48 @@ public class Interact : MonoBehaviour
     public void interactWithNPC()
     {
         textbox.SetActive(true);
+        isBeingInteractedWith = true;
+        totalIndex = 0;
+        ClearDialogue();
+        foreach (int playersLines in playerLineOrder)
+        {
+            if (totalIndex == playersLines)
+            {
+                playerIsSpeaking = true;
+            }
+            else
+            {
+                playerIsSpeaking = false;
+            }
+        }
+        if (playerIsSpeaking)
+        {
+            NPCIndex = -1;
+            playerIndex = 0; 
+        }
+        else 
+        {
+            NPCIndex = 0;
+            playerIndex = -1;
+        }
+        StartCoroutine(typeLine());
+    }
+    private void Update()
+    {
+        if (isBeingInteractedWith)
+        {
+            if (Input.GetMouseButtonDown(0)) //maybe change to E
+            {
+                if (dialogueText.text == NPCLines[NPCIndex]|| dialogueText.text == playerLines[playerIndex])
+                {
+                    switchToNextLine();
+                }
+                else
+                {
+                    StopAllCoroutines();
+                    dialogueText.text = string.Empty;
+                }
+            }
+        }
     }
 }
