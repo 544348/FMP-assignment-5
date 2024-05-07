@@ -16,6 +16,7 @@ public class Interact : MonoBehaviour
     private int totalIndex;
     private int NPCIndex;
     public int[] playerLineOrder;
+    public int[] NPCLineOrder;
     public int playerIndex;
     public string[] NPCLines;
     public string[] playerLines;
@@ -99,19 +100,28 @@ public class Interact : MonoBehaviour
             totalIndex++;
             foreach (int playersLines in playerLineOrder)
             {
+                Debug.Log("TotalIndex = " + totalIndex);
                 if (totalIndex == playersLines)
                 {
                     playerIsSpeaking = true;
                     playerIndex++;
+                    Debug.Log("playerIndex = " + playerIndex);
+                    dialogueText.text = string.Empty;
+                    StartCoroutine(typeLine());
+                    return;
                 }
-                else
+            }
+            foreach (int NPCsLines in NPCLineOrder)
+            {
+                if (totalIndex == NPCsLines)
                 {
                     playerIsSpeaking = false;
                     NPCIndex++;
+                    dialogueText.text = string.Empty; 
+                    StartCoroutine(typeLine());
+                    return;
                 }
             }
-            dialogueText.text = string.Empty;
-            StartCoroutine(typeLine());
         }
         else
         {
@@ -133,6 +143,18 @@ public class Interact : MonoBehaviour
             if (totalIndex == playersLines)
             {
                 playerIsSpeaking = true;
+                if (playerIsSpeaking)
+                {
+                    NPCIndex = -1;
+                    playerIndex = 0;
+                }
+                else
+                {
+                    NPCIndex = 0;
+                    playerIndex = -1;
+                }
+                StartCoroutine(typeLine());
+                return;
             }
             else
             {
@@ -150,6 +172,7 @@ public class Interact : MonoBehaviour
             playerIndex = -1;
         }
         StartCoroutine(typeLine());
+        return;
     }
     private void Update()
     {
@@ -157,15 +180,35 @@ public class Interact : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0)) //maybe change to E
             {
-                if (dialogueText.text == NPCLines[NPCIndex]|| dialogueText.text == playerLines[playerIndex])
+                if (NPCIndex < 0)
                 {
-                    switchToNextLine();
+                    NPCIndex++;
+                    if (dialogueText.text == NPCLines[NPCIndex] || dialogueText.text == playerLines[playerIndex])
+                    {
+                        Debug.Log("NPCindex was less than 0");
+                        NPCIndex--;
+                        switchToNextLine();
+                    }
+                    else
+                    {
+                        StopAllCoroutines();
+                        dialogueText.text = string.Empty;
+                    }
                 }
-                else
+                else 
                 {
-                    StopAllCoroutines();
-                    dialogueText.text = string.Empty;
+                    Debug.Log("NPCindex was higher than 0");
+                    if (dialogueText.text == NPCLines[NPCIndex] || dialogueText.text == playerLines[playerIndex])
+                    {
+                        switchToNextLine();
+                    }
+                    else
+                    {
+                        StopAllCoroutines();
+                        dialogueText.text = string.Empty;
+                    }
                 }
+                
             }
         }
     }
