@@ -9,13 +9,16 @@ EditorBuildSettings:
     path: Assets/Scenes/Title screen.unity
     guid: 3116c845eb522514ab47a4d6221a33a0
   - enabled: 1
+    path: Assets/Scenes/IntrocutsceneScene.unity
+    guid: 1eb26ec3d4e64c04ea5b143e3784d66a
+  - enabled: 1
     path: Assets/Scenes/Tutorial castle scene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/FallingCutscene.unity
     guid: 4b825c5f630718842915610031870d0a
   - enabled: 1
-    path: Assets/Scenes/The mines.unity
+    path: Assets/Scenes/TheMines.unity
     guid: cd42aa2d44a192b4ea63d6f3be705a19
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

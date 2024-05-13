@@ -46,9 +46,13 @@ public class UIScript : MonoBehaviour
         controlsMenu.SetActive(false);
         menu.SetActive(true);
     }
+    public void TempSceneSwitcher()
+    {
+        SceneManager.LoadScene("TheMines");
+    }
     public void TitleStart()
     {
-        SceneManager.LoadScene("Tutorial castle scene");
+        SceneManager.LoadScene("IntrocutsceneScene");
     }
     void Update()
     {
