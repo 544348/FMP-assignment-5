@@ -736,8 +736,6 @@ RectTransform:
   - {fileID: 2006764862}
   - {fileID: 1806721856}
   - {fileID: 414888621}
-  - {fileID: 235360018}
-  - {fileID: 1939665078}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2659,6 +2657,7 @@ MonoBehaviour:
   stageTwoSpeedTimerInterval: 1.5
   QuestWall: {fileID: 1970107374}
   playersFace: {fileID: -3786778415408729478, guid: 0e71e83672349de44938ac3126904801, type: 3}
+  playerIsInteracting: 0
 --- !u!50 &213040523
 Rigidbody2D:
   serializedVersion: 4
@@ -3124,11 +3123,11 @@ Transform:
   m_GameObject: {fileID: 235360016}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -694.2158, y: -385.97, z: 0}
+  m_LocalPosition: {x: -11.39, y: -1.81, z: 0}
   m_LocalScale: {x: 0.3069139, y: 0.2832975, z: 0.2832975}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 62135002}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &240561467
 GameObject:
@@ -4358,8 +4357,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 101.2219, y: -43.491}
-  m_SizeDelta: {x: 202.4438, y: 86.982}
+  m_AnchoredPosition: {x: 211.0354, y: -94.1741}
+  m_SizeDelta: {x: 422.0708, y: 188.3484}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &377594012
 MonoBehaviour:
@@ -4738,10 +4737,10 @@ RectTransform:
   - {fileID: 2139933373}
   m_Father: {fileID: 62135002}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.7062988, y: -324.13}
-  m_SizeDelta: {x: -915.817, y: -648.2684}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 58.883453}
+  m_SizeDelta: {x: 324.4204, y: 117.76691}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &414888622
 MonoBehaviour:
@@ -9385,10 +9384,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 377594011}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -12.7822}
-  m_SizeDelta: {x: 200, y: 61.4176}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 182.21902, y: -81.033966}
+  m_SizeDelta: {x: 359.558, y: 136.5037}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &742167680
 MonoBehaviour:
@@ -15968,6 +15967,7 @@ MonoBehaviour:
   isBeingInteractedWith: 0
   eInteract: {fileID: 377594010}
   CanvasObject: {fileID: 62134998}
+  player: {fileID: 213040521}
 --- !u!1 &1335000678
 GameObject:
   m_ObjectHideFlags: 0
@@ -21226,7 +21226,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.7062988, y: 0.00088500977}
+  m_AnchoredPosition: {x: 0.7062988, y: 0.0008544922}
   m_SizeDelta: {x: -1286, y: -36.762}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1806721857
@@ -22955,11 +22955,11 @@ Transform:
   m_GameObject: {fileID: 1939665076}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -676.9802, y: -385.97, z: 0}
+  m_LocalPosition: {x: 5.845583, y: -1.809997, z: 0}
   m_LocalScale: {x: 0.3069139, y: 0.2832975, z: 0.2832975}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 62135002}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1946872278
 GameObject:
@@ -23149,8 +23149,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.1339, y: -1.0152893}
-  m_SizeDelta: {x: 314.5857, y: 82.9684}
+  m_AnchoredPosition: {x: 6.6382, y: 0}
+  m_SizeDelta: {x: 277.9424, y: 99.52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1950418085
 MonoBehaviour:
@@ -25360,7 +25360,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -56.117, y: 0.000030041}
+  m_AnchoredPosition: {x: -56.117004, y: 0.000030040741}
   m_SizeDelta: {x: 112.23, y: 116.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2139933374
@@ -25555,5 +25555,7 @@ SceneRoots:
   - {fileID: 2063812896}
   - {fileID: 1327114019}
   - {fileID: 1949513343}
+  - {fileID: 235360018}
+  - {fileID: 1939665078}
   - {fileID: 62135002}
   - {fileID: 1894091601}

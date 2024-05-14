@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject QuestWall;
     [Header("Dialogue")]
     public Sprite playersFace;
+    public bool playerIsInteracting;
 
 
     bool grounded = false;
@@ -118,21 +119,27 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        hoz = Input.GetAxisRaw("Horizontal") * speed;
-        vert = Input.GetAxisRaw("Vertical");
-        rig.velocity = new Vector2 (hoz, rig.velocity.y);
+        if (!playerIsInteracting)
+        {
+            hoz = Input.GetAxisRaw("Horizontal") * speed;
+            vert = Input.GetAxisRaw("Vertical");
+            rig.velocity = new Vector2(hoz, rig.velocity.y);
+        }
     }
     private void flip()
     {
-        if (flipped == true)
+        if (!playerIsInteracting)
         {
-            gameObject.transform.localScale = defaultScale;
-            flipped = false;
-        }
-        else if (flipped == false)
-        {
-            gameObject.transform.localScale = new Vector3(-1, 1, 1);
-            flipped = true; 
+            if (flipped == true)
+            {
+                gameObject.transform.localScale = defaultScale;
+                flipped = false;
+            }
+            else if (flipped == false)
+            {
+                gameObject.transform.localScale = new Vector3(-1, 1, 1);
+                flipped = true;
+            }
         }
     }
     private void wallGrab()
@@ -145,34 +152,37 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Jump()
     {
-        if (isGrounded)
+        if (!playerIsInteracting)
         {
-            rig.velocity = new Vector2(rig.velocity.x, 0);
-            rig.AddForce(Vector2.up * jumpStrength);
-            Debug.Log("has jumped");
-        }
-        else if (amountOfExtraJumpsLeft > 0 && isOnWall == false)
-        {
-            rig.velocity = new Vector2(rig.velocity.x, 0);
-            rig.AddForce(Vector2.up * jumpStrength);
-             --amountOfExtraJumpsLeft;
-            Debug.Log("has double jumped");
-        }
-        else if (isOnWall)
-        {
-            isOnWall = false;
-            rig.gravityScale = 1;
-            rig.AddForce(new Vector2((5 * wallJumpForce) * transform.localScale.x, 1 * jumpStrength));
-            flip();
-            hasJumped = true;
-            Debug.Log("has wall jumped");
-        }
-        else if (!isGrounded && !isOnWall)
-        {
-            --amountOfExtraJumpsLeft;
-            rig.velocity = new Vector2(rig.velocity.x, 0);
-            rig.AddForce(Vector2.up * jumpStrength);
-            Debug.Log("has double jumped");
+            if (isGrounded)
+            {
+                rig.velocity = new Vector2(rig.velocity.x, 0);
+                rig.AddForce(Vector2.up * jumpStrength);
+                Debug.Log("has jumped");
+            }
+            else if (amountOfExtraJumpsLeft > 0 && isOnWall == false)
+            {
+                rig.velocity = new Vector2(rig.velocity.x, 0);
+                rig.AddForce(Vector2.up * jumpStrength);
+                --amountOfExtraJumpsLeft;
+                Debug.Log("has double jumped");
+            }
+            else if (isOnWall)
+            {
+                isOnWall = false;
+                rig.gravityScale = 1;
+                rig.AddForce(new Vector2((5 * wallJumpForce) * transform.localScale.x, 1 * jumpStrength));
+                flip();
+                hasJumped = true;
+                Debug.Log("has wall jumped");
+            }
+            else if (!isGrounded && !isOnWall)
+            {
+                --amountOfExtraJumpsLeft;
+                rig.velocity = new Vector2(rig.velocity.x, 0);
+                rig.AddForce(Vector2.up * jumpStrength);
+                Debug.Log("has double jumped");
+            }
         }
     }
     private void GroundCheck()
@@ -281,6 +291,8 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && mostRecentNPCinteraction != null && mostRecentNPCinteraction.gameObject.GetComponent<Interact>().isBeingInteractedWith == false)
         {
             mostRecentNPCinteraction.GetComponent<Interact>().interactWithNPC();
+            mostRecentNPCinteraction.GetComponent<Interact>().eInteract.SetActive(false);
+            playerIsInteracting = true;
         }
     }
 }

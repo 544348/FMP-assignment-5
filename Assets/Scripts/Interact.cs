@@ -25,13 +25,13 @@ public class Interact : MonoBehaviour
     public bool isBeingInteractedWith;
     public GameObject eInteract;
     public GameObject CanvasObject;
-    private GameObject player;
+    public GameObject player;
+    private bool hasClicked;
 
     void Start()
     {
         DisableeInteract();
         dialogueText.text = string.Empty;
-        player = GameObject.Find("Player");
         NPCIndex = -1;
         totalIndex = 0; 
         totalAmountOfLines = NPCLines.Length + playerLines.Length;
@@ -87,6 +87,7 @@ public class Interact : MonoBehaviour
         textbox.SetActive(false);
         StopAllCoroutines();
         isBeingInteractedWith = false;
+        player.GetComponent<PlayerMovement>().playerIsInteracting = false;
     }
     public void ClearDialogue()
     {
@@ -105,10 +106,8 @@ public class Interact : MonoBehaviour
                 {
                     playerIsSpeaking = true;
                     playerIndex++;
-                    Debug.Log("playerIndex = " + playerIndex);
-                    dialogueText.text = string.Empty;
-                    StartCoroutine(typeLine());
-                    return;
+                    Debug.Log("TotalIndex = " + totalIndex + "playerIndex = " + playerIndex);
+                    break;
                 }
             }
             foreach (int NPCsLines in NPCLineOrder)
@@ -117,11 +116,13 @@ public class Interact : MonoBehaviour
                 {
                     playerIsSpeaking = false;
                     NPCIndex++;
-                    dialogueText.text = string.Empty; 
-                    StartCoroutine(typeLine());
-                    return;
+                    Debug.Log("TotalIndex = " + totalIndex + "NPCIndex = " + NPCIndex);
+                    break;
                 }
             }
+            dialogueText.text = string.Empty;
+            StartCoroutine(typeLine());
+            hasClicked = false;
         }
         else
         {
@@ -178,37 +179,39 @@ public class Interact : MonoBehaviour
     {
         if (isBeingInteractedWith)
         {
-            if (Input.GetMouseButtonDown(0)) //maybe change to E
+            if (!hasClicked)
             {
-                if (NPCIndex < 0)
+                if (Input.GetMouseButtonDown(0)) //maybe change to E
                 {
-                    NPCIndex++;
-                    if (dialogueText.text == NPCLines[NPCIndex] || dialogueText.text == playerLines[playerIndex])
+                    if (NPCIndex < 0)
                     {
-                        Debug.Log("NPCindex was less than 0");
-                        NPCIndex--;
-                        switchToNextLine();
+                        NPCIndex = 0;
+                        if (dialogueText.text != string.Empty && dialogueText.text == NPCLines[NPCIndex] || dialogueText.text == playerLines[playerIndex])
+                        {
+                            Debug.Log("NPCindex was less than 0");
+                            NPCIndex--;
+                            hasClicked = true;
+                            switchToNextLine();
+                        }
+                        else
+                        {
+                            Debug.Log("wait for NPC to finish speaking");
+                        }
                     }
                     else
                     {
-                        StopAllCoroutines();
-                        dialogueText.text = string.Empty;
+                        Debug.Log("NPCindex was higher than 0");
+                        if (dialogueText.text != string.Empty && dialogueText.text == NPCLines[NPCIndex] || dialogueText.text == playerLines[playerIndex])
+                        {
+                            hasClicked = true;
+                            switchToNextLine();
+                        }
+                        else
+                        {
+                            Debug.Log("wait for NPC to finish speaking");
+                        }
                     }
                 }
-                else 
-                {
-                    Debug.Log("NPCindex was higher than 0");
-                    if (dialogueText.text == NPCLines[NPCIndex] || dialogueText.text == playerLines[playerIndex])
-                    {
-                        switchToNextLine();
-                    }
-                    else
-                    {
-                        StopAllCoroutines();
-                        dialogueText.text = string.Empty;
-                    }
-                }
-                
             }
         }
     }
