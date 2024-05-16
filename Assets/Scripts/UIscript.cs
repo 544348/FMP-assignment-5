@@ -50,6 +50,10 @@ public class UIScript : MonoBehaviour
     {
         SceneManager.LoadScene("TheMines");
     }
+    public void TempSceneSwitcherICC()
+    {
+        SceneManager.LoadScene("Tutorial castle scene");
+    }
     public void TitleStart()
     {
         SceneManager.LoadScene("IntrocutsceneScene");
