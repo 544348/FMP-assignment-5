@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.U2D.Sprites;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -42,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Dialogue")]
     public Sprite playersFace;
     public bool playerIsInteracting;
+
+    public Animator animator;
 
 
     bool grounded = false;
@@ -124,8 +127,34 @@ public class PlayerMovement : MonoBehaviour
             hoz = Input.GetAxisRaw("Horizontal") * speed;
             vert = Input.GetAxisRaw("Vertical");
             rig.velocity = new Vector2(hoz, rig.velocity.y);
+
+
+          
+
+
         }
     }
+
+
+    private void setAnimation(Vector2 vector)
+    {
+        Debug.Log("x"+rig.velocity.x);
+        Debug.Log("y"+rig.velocity.y);
+
+        if (vector.x < 0)
+        {
+            animator.SetBool("move", true);
+        }
+        else if (vector.x > 0)
+        {
+            animator.SetBool("move", true);
+        }
+        else 
+        {
+            animator.SetBool("move", false);
+        }
+    }
+
     private void flip()
     {
         if (!playerIsInteracting)
@@ -215,7 +244,14 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
+
+        //Debug.Log(rig.velocity);
+        setAnimation(rig.velocity);
+
+
         GroundCheck();
+
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
 

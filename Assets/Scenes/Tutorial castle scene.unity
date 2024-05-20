@@ -2658,6 +2658,7 @@ MonoBehaviour:
   QuestWall: {fileID: 1970107374}
   playersFace: {fileID: -3786778415408729478, guid: 0e71e83672349de44938ac3126904801, type: 3}
   playerIsInteracting: 0
+  animator: {fileID: 607697377}
 --- !u!50 &213040523
 Rigidbody2D:
   serializedVersion: 4
@@ -2722,7 +2723,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ed5597fdf796cd649ab7df1805a1ae9e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7586,6 +7587,7 @@ GameObject:
   m_Component:
   - component: {fileID: 607697375}
   - component: {fileID: 607697376}
+  - component: {fileID: 607697377}
   m_Layer: 0
   m_Name: brian_0
   m_TagString: Untagged
@@ -7651,7 +7653,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1669381003, guid: 3d48087eb679c95408cd5bd231ce5f57, type: 3}
+  m_Sprite: {fileID: 8872967230408923372, guid: 16e87a31ddd84904d8a73c438901879e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -7662,6 +7664,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &607697377
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607697374}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4f6fa35f0d246c846a8a759a9a5ba7a1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &617736959
 GameObject:
   m_ObjectHideFlags: 0
