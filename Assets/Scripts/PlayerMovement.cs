@@ -321,7 +321,7 @@ public class PlayerMovement : MonoBehaviour
             stageTwoSpeedTimer += Time.deltaTime;
             if (stageTwoSpeedTimer >= stageTwoSpeedTimerInterval)
             {
-                speed = baseSpeed * 2;
+                speed = baseSpeed * 1.5f;
             }
         }
         if (Input.GetKeyDown(KeyCode.E) && mostRecentNPCinteraction != null && mostRecentNPCinteraction.gameObject.GetComponent<Interact>().isBeingInteractedWith == false)

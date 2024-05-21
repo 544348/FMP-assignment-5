@@ -27,14 +27,16 @@ public class Interact : MonoBehaviour
     public GameObject CanvasObject;
     public GameObject player;
     private bool hasClicked;
+    public bool hasObjectAttached;
+    public GameObject wall;
 
     void Start()
     {
         DisableeInteract();
         dialogueText.text = string.Empty;
-        NPCIndex = -1;
+        NPCIndex = 0;
         totalIndex = 0; 
-        totalAmountOfLines = NPCLines.Length + playerLines.Length;
+        totalAmountOfLines = (NPCLines.Length + playerLines.Length)-1;
         isBeingInteractedWith = false;
     }
     private void Awake()
@@ -96,16 +98,27 @@ public class Interact : MonoBehaviour
     }
     public void switchToNextLine()
     {
-        if (totalIndex < totalAmountOfLines - 1)
+        if (totalIndex < totalAmountOfLines)
         {
             totalIndex++;
+         /*   if (totalIndex == NPCLineOrder.Length + playerLineOrder.Length)
+            {
+                return;
+            } */
+            if (!playerIsSpeaking)
+            {
+                NPCIndex++;
+            }
+            else
+            {
+                playerIndex++;
+            }
             foreach (int playersLines in playerLineOrder)
             {
                 Debug.Log("TotalIndex = " + totalIndex);
                 if (totalIndex == playersLines)
                 {
                     playerIsSpeaking = true;
-                    playerIndex++;
                     Debug.Log("TotalIndex = " + totalIndex + "playerIndex = " + playerIndex);
                     break;
                 }
@@ -115,7 +128,6 @@ public class Interact : MonoBehaviour
                 if (totalIndex == NPCsLines)
                 {
                     playerIsSpeaking = false;
-                    NPCIndex++;
                     Debug.Log("TotalIndex = " + totalIndex + "NPCIndex = " + NPCIndex);
                     break;
                 }
@@ -126,6 +138,11 @@ public class Interact : MonoBehaviour
         }
         else
         {
+            if (hasObjectAttached)
+            {
+                Destroy(wall);
+                Debug.Log("Destroy wall");
+            }
             DisableeInteract();
         }
     }
@@ -146,13 +163,13 @@ public class Interact : MonoBehaviour
                 playerIsSpeaking = true;
                 if (playerIsSpeaking)
                 {
-                    NPCIndex = -1;
+                    NPCIndex = 0;
                     playerIndex = 0;
                 }
                 else
                 {
                     NPCIndex = 0;
-                    playerIndex = -1;
+                    playerIndex = 0;
                 }
                 StartCoroutine(typeLine());
                 return;
@@ -164,13 +181,13 @@ public class Interact : MonoBehaviour
         }
         if (playerIsSpeaking)
         {
-            NPCIndex = -1;
+            NPCIndex = 0;
             playerIndex = 0; 
         }
         else 
         {
             NPCIndex = 0;
-            playerIndex = -1;
+            playerIndex = 0;
         }
         StartCoroutine(typeLine());
         return;
@@ -179,38 +196,30 @@ public class Interact : MonoBehaviour
     {
         if (isBeingInteractedWith)
         {
-            if (!hasClicked)
+            if (Input.GetMouseButtonDown(0)) //maybe change to E
             {
-                if (Input.GetMouseButtonDown(0)) //maybe change to E
+                if (totalIndex == totalAmountOfLines)
                 {
-                    if (NPCIndex < 0)
+                    switchToNextLine();
+                    return;
+                }
+                if (dialogueText.text != string.Empty && dialogueText.text == NPCLines[NPCIndex] || dialogueText.text == playerLines[playerIndex])
+                {
+                    Debug.Log("NPCindex was less than 0");
+                    switchToNextLine();
+                }
+                else
+                {
+                    StopAllCoroutines();
+                    if (playerIsSpeaking)
                     {
-                        NPCIndex = 0;
-                        if (dialogueText.text != string.Empty && dialogueText.text == NPCLines[NPCIndex] || dialogueText.text == playerLines[playerIndex])
-                        {
-                            Debug.Log("NPCindex was less than 0");
-                            NPCIndex--;
-                            hasClicked = true;
-                            switchToNextLine();
-                        }
-                        else
-                        {
-                            Debug.Log("wait for NPC to finish speaking");
-                        }
+                        dialogueText.text = playerLines[playerIndex];
                     }
                     else
                     {
-                        Debug.Log("NPCindex was higher than 0");
-                        if (dialogueText.text != string.Empty && dialogueText.text == NPCLines[NPCIndex] || dialogueText.text == playerLines[playerIndex])
-                        {
-                            hasClicked = true;
-                            switchToNextLine();
-                        }
-                        else
-                        {
-                            Debug.Log("wait for NPC to finish speaking");
-                        }
+                        dialogueText.text = NPCLines[NPCIndex];
                     }
+                    Debug.Log("wait for NPC to finish speaking");
                 }
             }
         }
