@@ -10,6 +10,7 @@ TagManager:
   - CutsceneTrigger
   - FinishedQuestTrigger
   - QuestWall
+  - DeathTag
   layers:
   - Default
   - TransparentFX

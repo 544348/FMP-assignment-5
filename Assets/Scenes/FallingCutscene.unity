@@ -640,7 +640,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000015259, y: 0.000015259}
+  m_AnchoredPosition: {x: 59, y: -77}
   m_SizeDelta: {x: 502.1904, y: 94.0887}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2025774776
@@ -663,8 +663,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "There will be a cutscene here but press this button for now to go to the
-    next scene\u2764\uFE0F\u2764\uFE0F\u2764\uFE0F\u2764\uFE0F"
+  m_text: Cutscene not completed.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5e9cfb149b9824f4d9a2ad5690f372bf, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 5e9cfb149b9824f4d9a2ad5690f372bf, type: 2}
@@ -729,7 +728,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 88.84442, w: 41.746185}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.U2D.Sprites;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -86,6 +87,10 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "CutsceneTrigger")
         {
             SceneManager.LoadScene("FallingCutscene");
+        }
+        if (collision.gameObject.tag == "DeathTag")
+        {
+            Debug.Log("Player should die and teleport back");
         }
         if (collision.gameObject.tag == "FinishedQuestTrigger")
         {
