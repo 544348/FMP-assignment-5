@@ -231,11 +231,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 142265482}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 045b83232f085f0489aa6e9d02fbbbe5, type: 3}
+  m_Script: {fileID: 11500000, guid: ec8b89fc3dc6aa844bec8159c1e43c26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsMenu: {fileID: 0}
-  controlsMenu: {fileID: 0}
 --- !u!1 &665596482
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,7 +472,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2015697957}
   - component: {fileID: 2015697960}
-  - component: {fileID: 2015697958}
   m_Layer: 5
   m_Name: RawImage
   m_TagString: Untagged
@@ -501,42 +498,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.000045776, y: -0.0025177}
   m_SizeDelta: {x: 1366, y: 767.99}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!328 &2015697958
-VideoPlayer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2015697956}
-  m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: de8fe4ae2f3dd4143aaa44617263f748, type: 3}
-  m_TargetCameraAlpha: 1
-  m_TargetCamera3DLayout: 0
-  m_TargetCamera: {fileID: 0}
-  m_TargetTexture: {fileID: 0}
-  m_TimeReference: 0
-  m_TargetMaterialRenderer: {fileID: 0}
-  m_TargetMaterialProperty: <noninit>
-  m_RenderMode: 2
-  m_AspectRatio: 2
-  m_DataSource: 1
-  m_TimeUpdateMode: 2
-  m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
-  m_TargetAudioSources:
-  - {fileID: 0}
-  m_DirectAudioVolumes:
-  - 1
-  m_Url: file://C:/Users/544348/Vr-game/FMP-assignment-5/Assets/Assets/Cutscenes/test.mp4
-  m_EnabledAudioTracks: 01
-  m_DirectAudioMutes: 00
-  m_ControlledAudioTrackCount: 1
-  m_PlayOnAwake: 1
-  m_SkipOnDrop: 1
-  m_Looping: 0
-  m_WaitForFirstFrame: 1
-  m_FrameReadyEventEnabled: 0
-  m_VideoShaders: []
 --- !u!222 &2015697960
 CanvasRenderer:
   m_ObjectHideFlags: 0

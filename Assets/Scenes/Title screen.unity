@@ -819,7 +819,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1859237446}
-        m_TargetAssemblyTypeName: UIscript, Assembly-CSharp
+        m_TargetAssemblyTypeName: TitleScreenScript, Assembly-CSharp
         m_MethodName: TitleStart
         m_Mode: 1
         m_Arguments:
@@ -956,7 +956,7 @@ GameObject:
   - component: {fileID: 1859237444}
   - component: {fileID: 1859237446}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Artwork
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1034,11 +1034,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1859237442}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 045b83232f085f0489aa6e9d02fbbbe5, type: 3}
+  m_Script: {fileID: 11500000, guid: ec8b89fc3dc6aa844bec8159c1e43c26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsMenu: {fileID: 0}
-  controlsMenu: {fileID: 0}
 --- !u!1 &1955259934
 GameObject:
   m_ObjectHideFlags: 0
